@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  db:
+    build: 
+        context: https://github.com/steve84/project.past.db.git
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./:/usr/src/project.past.db
+  frontend:
+    build:
+        context: https://github.com/steve84/project.past.frontend.git
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+  api:
+    build:
+        context: https://github.com/steve84/project.past.api.git
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
